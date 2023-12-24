@@ -15,8 +15,14 @@ public class HelloWorldRouter {
 
 	@Bean
 	public RouterFunction<ServerResponse> routeHelloWorld(HelloWorldHandler helloWorldHandler) {
-
 		return RouterFunctions.route(RequestPredicates.GET("/helloWorld")
-                .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloWorldHandler::helloWorld);
+				.and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloWorldHandler::helloWorld);
 	}
+
+	@Bean
+	public RouterFunction<ServerResponse> routeHelloWorldStream(HelloWorldHandler helloWorldHandler) {
+		return RouterFunctions.route(RequestPredicates.GET("/helloWorldStream")
+                .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloWorldHandler::helloWorldStream);
+	}	
+
 }

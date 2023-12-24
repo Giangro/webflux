@@ -18,7 +18,7 @@ public class WebfluxApplication implements ApplicationRunner {
     public void run(ApplicationArguments arg0) throws Exception {
 
         log.info("\n\t********************************************"
-                +"\n\t***         WebfluxDemo  0.0.1           ***"
+                +"\n\t***         WebfluxDemo  0.0.2           ***"
                 +"\n\t********************************************");
 
 	}
