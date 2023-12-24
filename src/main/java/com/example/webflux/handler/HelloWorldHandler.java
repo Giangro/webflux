@@ -12,6 +12,6 @@ import reactor.core.publisher.Mono;
 public class HelloWorldHandler {
 public Mono<ServerResponse> helloWorld(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-			.body(BodyInserters.fromValue("Hello World!"));
+			.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.1"));
 	}
 }
