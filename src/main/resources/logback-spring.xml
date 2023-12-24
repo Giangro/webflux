@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <springProfile name="default">
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>/logs/${POD_NAME}-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+                <!-- each archived file's size will be max 10MB -->
+                <maxFileSize>1MB</maxFileSize>
+                <!-- 30 days to keep -->
+                <maxHistory>5</maxHistory>
+                <!-- total size of all archive files, if total size > 100GB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%-4relative [%thread] %-5level %logger{35} -%kvp- %msg%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="STDOUT"
+                  class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>
+                    %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
+        </root>
+    </springProfile>
+</configuration>
