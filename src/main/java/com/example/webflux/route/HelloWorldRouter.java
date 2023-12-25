@@ -22,7 +22,7 @@ public class HelloWorldRouter {
 	@Bean
 	public RouterFunction<ServerResponse> routeHelloWorldStream(HelloWorldHandler helloWorldHandler) {
 		return RouterFunctions.route(RequestPredicates.GET("/helloWorldStream")
-                .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloWorldHandler::helloWorldStream);
-	}	
+				.and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), helloWorldHandler::helloWorldStream);
+	}
 
 }
