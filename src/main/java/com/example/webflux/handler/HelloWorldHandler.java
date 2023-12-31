@@ -21,14 +21,15 @@ public class HelloWorldHandler {
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
 				.body(BodyInserters.fromPublisher(
-						Flux.range(1, 12)
-								.window(3)
+						Flux.range(1, 100)
+								.window(11)
 								.switchOnFirst((signal, flux) -> {									
 										return signal
 											.get()
 											.concatWith(
 												flux.skip(1)													
-													.flatMap(it->it.delayElements(Duration.ofSeconds(10)))
+													.delayElements(Duration.ofSeconds(10))
+													.flatMap(it->it.parallel())
 											);
 								})								
 								.map(i -> {
