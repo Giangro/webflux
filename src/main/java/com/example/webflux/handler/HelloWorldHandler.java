@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Component
 public class HelloWorldHandler {
@@ -21,15 +22,15 @@ public class HelloWorldHandler {
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
 				.body(BodyInserters.fromPublisher(
-						Flux.range(1, 100)
-								.window(11)
+						Flux.range(1, 10000)
+								.window(10)
 								.switchOnFirst((signal, flux) -> {									
 										return signal
 											.get()
 											.concatWith(
 												flux.skip(1)													
-													.delayElements(Duration.ofSeconds(10))
-													.flatMap(it->it.parallel())
+													.delayElements(Duration.ofMillis(200))
+													.flatMap(it->it.parallel(4).runOn(Schedulers.parallel()))
 											);
 								})								
 								.map(i -> {
