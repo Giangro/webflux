@@ -23,13 +23,13 @@ public class HelloWorldHandler {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
 				.body(BodyInserters.fromPublisher(
 						Flux.range(1, 10000)
-								.window(10)
+								.window(5)
 								.switchOnFirst((signal, flux) -> {									
 										return signal
 											.get()
 											.concatWith(
 												flux.skip(1)													
-													.delayElements(Duration.ofMillis(200))
+													.delayElements(Duration.ofMillis(100))
 													.flatMap(it->it.parallel(4).runOn(Schedulers.parallel()))
 											);
 								})								
