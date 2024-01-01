@@ -15,11 +15,9 @@ import reactor.core.scheduler.Schedulers;
 @Component
 public class HelloWorldHandler {
 
-
-
 	public Mono<ServerResponse> helloWorld(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.3"));
+				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.4"));
 	}
 
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
