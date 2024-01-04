@@ -16,7 +16,7 @@ public class HelloWorldHandler {
 
 	public Mono<ServerResponse> helloWorld(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.4"));
+				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.5"));
 	}
 
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
@@ -36,9 +36,9 @@ public class HelloWorldHandler {
 								.flatMap(i -> {									
 									return Mono.zip(
 										Mono.just(i)
-										,WebClient.create("http://ifconfig.me")									
+										,WebClient.create("http://localhost:8080")
 											.get()
-											.uri("/ip")
+											.uri("/helloWorld")
 											.retrieve()
 											.bodyToMono(String.class)
 										,(a,b)->String.format("%d: %s",a,b));
