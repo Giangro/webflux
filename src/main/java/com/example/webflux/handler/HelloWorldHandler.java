@@ -21,7 +21,7 @@ public class HelloWorldHandler {
 
 	public Mono<ServerResponse> helloWorld(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.5"));
+				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.6"));
 	}
 
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
