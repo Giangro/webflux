@@ -8,9 +8,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import com.example.webflux.dto.BookDto;
+import com.example.webflux.model.Book;
+
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Component
 public class HelloWorldHandler {
 
@@ -20,35 +25,29 @@ public class HelloWorldHandler {
 	}
 
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
-		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
+		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromPublisher(
-						Flux.range(1, 100)
-								.window(10)
-								.switchOnFirst((signal, flux) -> {									
-										return signal
+						Flux.range(1, 1000)
+								.window(100)
+								.switchOnFirst((signal, flux) -> {
+									return signal
 											.get()
 											.concatWith(
-												flux.skip(1)													
-													.delayElements(Duration.ofMillis(15000))
-													.flatMap(it->it)
-											);
+													flux.skip(1)
+															.delayElements(Duration.ofMillis(100))
+															.flatMap(it -> it));
 								})
-								.flatMap(i -> {									
-									return Mono.zip(
-										Mono.just(i)
-										,WebClient.create("http://localhost:8080")
-											.get()
-											.uri("/helloWorld")
+								.flatMap(i -> {
+									BookDto newbook = new BookDto(String.format("Libro #%d",i), "Libro di Alessandro", false);
+									return WebClient.create("http://localhost:8080")
+											.post()
+											.uri("/books/create")
+											.contentType(MediaType.APPLICATION_JSON)
+											.body(BodyInserters.fromValue(newbook))
 											.retrieve()
-											.bodyToMono(String.class)
-										,(a,b)->String.format("%d: %s",a,b));
+											.bodyToMono(Book.class);											
 								})
-								.map(finalstr->{
-									return String.format(
-										"from %s: %s\n",Thread.currentThread().getName()
-										,finalstr);										
-								}),
-						String.class));
+						,Book.class));
 	}
 
 }

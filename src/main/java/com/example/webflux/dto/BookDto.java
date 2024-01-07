@@ -1,6 +1,4 @@
-package com.example.webflux.model;
-
-import org.springframework.data.annotation.Id;
+package com.example.webflux.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,17 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter 
-@Setter 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Book {
-   
-    @Id
-    private int id;
+public class BookDto {
+
     private String title;
     private String description;
     private Boolean published;
-    
+
 }
