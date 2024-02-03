@@ -22,6 +22,7 @@ public class BookHandler {
         bookService = bookservice;
     }
     
+    @SuppressWarnings("null")
     public Mono<ServerResponse> createBook(ServerRequest request) {
         return request.bodyToMono(Book.class)
             .flatMap(book -> bookService.save(book))
@@ -31,12 +32,14 @@ public class BookHandler {
                                 
     }
 
+    @SuppressWarnings("null")
     public Mono<ServerResponse> getBookById(ServerRequest request) {
 		int id = Integer.parseInt(request.pathVariable("id"));
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromPublisher(bookService.findById(id), Book.class));
 	}
 
+    @SuppressWarnings("null")
     public Mono<ServerResponse> getBooks(ServerRequest request) {		
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromPublisher(bookService.findAll(),Book.class));

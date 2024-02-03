@@ -11,19 +11,21 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.example.webflux.dto.BookDto;
 import com.example.webflux.model.Book;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Slf4j
+//@Slf4j
 @Component
 public class HelloWorldHandler {
 
+	@SuppressWarnings("null")
 	public Mono<ServerResponse> helloWorld(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
 				.body(BodyInserters.fromValue("Hello World from Webflux Demo v0.0.6"));
 	}
 
+	@SuppressWarnings("null")
 	public Mono<ServerResponse> helloWorldStream(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromPublisher(

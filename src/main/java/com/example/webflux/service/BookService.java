@@ -31,6 +31,7 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
+    @SuppressWarnings("null")
     public Mono<Book> save(Book Book) {
         return bookRepository.save(Book);
     }

@@ -11,6 +11,7 @@ import io.r2dbc.spi.ConnectionFactory;
 @EnableR2dbcRepositories(basePackages = {"com.example.webflux.repository"}, basePackageClasses = {})
 public class RepositoryConfig {
 
+    @SuppressWarnings("null")
     @Bean
     ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
 
